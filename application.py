@@ -53,9 +53,9 @@ def predict():
         prediction = pipe_over_sample.predict(final_features)
 
         if prediction == True:
-            output="Customer Will Purchase"
+            output="Visitor Will Purchase"
         else:
-            output="Customer Will Not Purchase"
+            output="Visitor Will Not Purchase"
     except :
         output="Wrong Data Type Input"
 
