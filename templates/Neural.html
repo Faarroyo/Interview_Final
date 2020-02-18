@@ -1,0 +1,87 @@
+{% extends 'layouts/base_test.html' %}
+
+
+
+
+{% block body %}
+<br>
+<br>
+<br>
+<h2>Neural Network</h2>
+<hr/>
+  <p>
+In this section we will explain the inner workings of the a simple Multilayer Perceptron and its powerful uses for prediction taking a more advanced approach. We will also show:
+<ol>
+<li>Model Pipeline</li>
+<li>Classification Report</li>
+<li>Comparison of Results</li>
+</ol>
+  <hr/>
+
+  <h3>Multi Layer Perceptron</h3>
+  <p>
+    <img class="img-fluid rounded" src="{{ url_for('static', filename='images/mlp.png') }}"
+     width="600" height="800" alt="">
+  </p>
+<p>
+  A neural network as seen above is a structure that mimicks the human brain structure connection input nodes to other nodes. This technique forces an activation function
+  on our input data. Since the same function is applied to each type of data we need standardization for our data in order to preserve accuracy. It also uses a techinque known as gradient descent and back
+  propagation in order to minimize our loss function and create optimized predictions.
+<a href="https://www.cs.toronto.edu/~hinton/absps/clp.pdf">For further technical explanation and research click here.</a>
+</p>
+  <hr/>
+   <br>
+
+   <h3>Pipeline & Code</h3>
+   <p>
+For our implementation we used Sklearn's pipeline object to outline steps needed to maximize our results for our MLP model.A standard scaler was also used as stated before
+we need to input the same scale into our activation functions.
+This pipeline was also passed through our an oversampling SMOTE technique and finally through a cross validation technique.
+This is outlined in the following code.
+   </p>
+<br>
+<br>
+<hr/>
+<img class="img-fluid rounded" src="{{ url_for('static', filename='images/mlp_pipe.png') }}"
+ width="1000" height="1200" alt="">
+
+
+
+
+<h2>Model Scoring</h2>
+
+
+<p>
+Two models will be compared to each other.
+
+<ol>
+  <li>Base Model</li>
+  <li>Tuned Model</li>
+</ol>
+
+</p>
+  <hr/>
+
+  <h3>Base Model</h3>
+  <p>This model was used without parameters all default parameters from Sklearn's neural network's.</p>
+  <p><strong>The following is the output from the classification report</strong></p>
+  <br>
+  <img class="img-fluid rounded" src="{{ url_for('static', filename='images/base_NN.png') }}"
+   width="600" height="600" alt="">
+   <br>
+
+  <hr/>
+  <h3>Tuned Model</h3>
+  <p>
+  This model was outputted from the best estimator from our <a href="{{url_for('oversampling')}}">RandomSearchCV</a algorithm.
+  </p>
+
+  <p><strong>The following is the output from the classification report</strong></p>
+
+  <img class="img-fluid rounded" src="{{ url_for('static', filename='images/tuned_NN.png') }}"
+   width="600" height="600" alt="">
+   <br>
+   <br>
+   <br>
+   <hr/>
+{% endblock %}

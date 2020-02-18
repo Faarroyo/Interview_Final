@@ -1,0 +1,95 @@
+{% extends 'layouts/base_test.html' %}
+
+
+
+
+{% block body %}
+<br>
+<br>
+<br>
+<h2>Random Forest Algorithm</h2>
+<hr/>
+  <p>
+In this section we will explain the inner workings of the Random Forest Algorithm and its power for prediction. We will also show:
+<ol>
+<li>Model Pipeline</li>
+<li>Classification Report</li>
+<li>Comparison of Results</li>
+</ol>
+  <hr/>
+
+  <h3>Random Forest and Decision Trees</h3>
+  <p>
+  A Random Forest Algorithm is an ensemble method which builds on a decision tree structure creating thousands of decision trees giving it the "forest" attribute. Our following variables would be structured into trees in around the following way.</p>
+
+  <ul>
+    <li>Administrative Duration</li>
+    <li>Product Related Duration</li>
+    <li>Exit Rate</li>
+    <li>Page Values</li>
+  </ul>
+
+  <p>
+    <img class="img-fluid rounded" src="{{ url_for('static', filename='images/forest_model.png') }}"
+     width="600" height="800" alt="">
+  </p>
+<p>
+  As seen above each tree will output a decision based on which path each observation takes. All three trees will then decide what the final prediction is through what is known as majority voting techinque. For example, if 2 trees voted for, "No Shop", that would be
+  our final prediction. This does not need normalization and is not prone to multicollinearity, but it may be prone to overfitting if we increase the amount of trees.
+  <a href="https://www.stat.berkeley.edu/~breiman/randomforest2001.pdf">For further technical explanation and research click here.</a>
+</p>
+  <hr/>
+   <br>
+
+   <h3>Pipeline & Code</h3>
+   <p>
+For our implementation we used Sklearn's pipeline object to outline steps needed to maximize our results for our Random Forest Algorithm.
+This pipeline was also passed through our an oversampling SMOTE technique and finally through a cross validation technique.
+This is outlined in the following code.
+   </p>
+<br>
+<br>
+<hr/>
+<img class="img-fluid rounded" src="{{ url_for('static', filename='images/rand_cv.png') }}"
+ width="1000" height="1200" alt="">
+
+
+
+
+<h2>Model Scoring</h2>
+
+
+<p>
+Two models will be compared to each other.
+
+<ol>
+  <li>Base Model</li>
+  <li>Tuned Model</li>
+</ol>
+
+</p>
+  <hr/>
+
+  <h3>Base Model</h3>
+  <p>This model was used without parameters all default parameters from Sklearn's ensemble models.</p>
+  <p><strong>The following is the output from the classification report</strong></p>
+  <br>
+  <img class="img-fluid rounded" src="{{ url_for('static', filename='images/base_rf.png') }}"
+   width="600" height="600" alt="">
+   <br>
+
+  <hr/>
+  <h3>Tuned Model</h3>
+  <p>
+  This model was outputted from the best estimator from our <a href="{{url_for('oversampling')}}">RandomSearchCV</a algorithm.
+  </p>
+
+  <p><strong>The following is the output from the classification report</strong></p>
+
+  <img class="img-fluid rounded" src="{{ url_for('static', filename='images/tuned_rf.png') }}"
+   width="600" height="600" alt="">
+   <br>
+   <br>
+   <br>
+   <hr/>
+{% endblock %}

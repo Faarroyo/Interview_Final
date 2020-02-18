@@ -1,0 +1,106 @@
+{% extends 'layouts/base_test.html' %}
+
+
+
+
+{% block body %}
+<br>
+<br>
+<br>
+<h2>Feature Selection</h2>
+  <p>
+    Feature selection is an important part of Machine Learning. It allows for a better model
+    and improves on previous models in the following ways.
+  </p>
+  <ul>
+    <li>
+      Increases computation time as it reduces our dataset variables.
+    </li>
+    <li>
+      Decreases chance of overfitting data to our current dataset.
+    </li>
+    <li>
+      Allows for greater model explainability.
+    </li>
+    <li>Creates a model that will generalize better for future applications.</li>
+  </ul>
+
+  <hr/>
+
+  <h3>Considered Feature Selection Methods</h3>
+  <p>
+      Our first consideration was applying two types of filters to our dataset. We applied a <strong>missing values filter</strong>, but soon realized
+    that our current dataset contained no missing values. This can be depicted in the graph below as we have no missing values. This was coupled with a <strong>low variance filter</strong>
+    ,but we found our results to not be very profound as many of the variables were still being accepted.
+  </p>
+  <img class="img-fluid rounded" src="{{ url_for('static', filename='images/feat_missing.png') }}"
+   width="600" height="800" alt="">
+   <br>
+   <br>
+  <p>
+      Next we applied a correlation matrix approach in which we attempted to find variables that were highly correlated with our target variable <strong>Revenue.</strong>
+    As we can see below this method is also a bit problematic as it will not take into consideration <strong>Multicollinearity,</strong> which seems to be occurring in the top left of our
+    correlation matrix.
+  </p>
+  <img class="img-fluid rounded" src="{{ url_for('static', filename='images/heat_map.png') }}"
+   width="1200" height="1000" alt="">
+   <br>
+  <p>
+    Lastly we considered a <strong>Random Forest classifier's</strong> feature importance method from Sklearn. This method takes into account Gini importance which we will go more indepth about in our Random
+    Forest Classifier Section below.
+  </p>
+
+  <hr/>
+
+  <h3>Random Forest Classifier</h3>
+  <p>
+    A Random Forest Classifier will use the <strong>Gini Importance</strong> which is the sum of impurity reduction. Each node in a tree as depicted below reduced the impurity or for simplicity lets call it variation between
+    our samples. If a feature split were to reduce our samples from 100 to 5 this is a good sign of an important feature. On the other hand, if we went from 100 to 99 this feature would not be useful for prediction.
+    Further research on this topic can be found <a href="https://www.stat.berkeley.edu/~breiman/randomforest2001.pdf">here</a>. This was the main motivating paper for this method using an academic approach to it.
+
+  </p>
+  <img class="img-fluid rounded" src="{{ url_for('static', filename='images/feat_imp.png') }}"
+   width="1200" height="1000" alt="">
+   <br>
+   <p><strong>Things to note:</strong></p>
+  <ul>
+    <li>We only showed the top 10 as we do not want many features in our final model.</li>
+    <li>This method favors categorical variables with many categories</li>
+    <li>We need to systematically distinguish between good observations and set a threshold for feature importance</li>
+    <li>Let's take it to the next step with Boruta.</li>
+  </ul>
+
+  <hr/>
+
+  <h3>Boruta Algorithm</h3>
+  <p>
+The Boruta Algorithm builds up on the Random Forest Classifier's Gini Impurity maximization and adds a de-biasing technique to it. It creates a set of features known as <strong>Shadow Features</strong>,
+which are randomized versions of our current features. Therefore, in theory we should have no correlation between our,"Shadow Features" and our outcome variable which is Revenue. Each of our features are
+compared with one another forming the null hypothesis seen below. All variables that are able to reject the null hypothesis at a 0.05 significance level are accepted by Boruta. Detailed mathematical explanation
+of the algorithm can be found. This algorithm's inital implementation in R can be found <a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.232.7660">here</a>,
+and its python counterpart is found in this <a href="https://github.com/scikit-learn-contrib/boruta_py">repository.</a>
+  </p>
+  <strong>Python Implementation</strong>
+  <p>
+    <img class="img-fluid rounded" src="{{ url_for('static', filename='images/python_imp.png') }}"
+     width="1000" height="1000" alt="">
+
+  </p>
+
+  <hr/>
+
+  <h3>Final Features</h3>
+  <p>
+  Our final features which were selected from our <strong>Boruta Algorithm</strong> are as follows:
+  </p>
+  <ul>
+    <li>Administrative Duration</li>
+    <li>Product Related Duration</li>
+    <li>Exit Rates</li>
+    <li>Page Values</li>
+    <li><a href="{{url_for('variables')}}">Find Variable Descriptions Here</a></li>
+  </ul>
+  </p>
+  <br>
+  <hr/>
+{% endblock %}

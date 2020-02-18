@@ -1,0 +1,86 @@
+{% extends 'layouts/base_test.html' %}
+
+
+
+
+{% block body %}
+<br>
+<br>
+<br>
+<h2>K-Nearest Neighbors</h2>
+<hr/>
+  <p>
+In this section we will explain the inner workings of the KNN algorithm with its simplicity and efficiency as a method for prediction. We will also show:
+<ol>
+<li>Model Pipeline</li>
+<li>Classification Report</li>
+<li>Comparison of Results</li>
+</ol>
+  <hr/>
+
+  <h3>KNN</h3>
+  <p>
+    <img class="img-fluid rounded" src="{{ url_for('static', filename='images/knn_vis.png') }}"
+     width="600" height="800" alt="">
+  </p>
+<p>
+  KNN as seen from above attempts to create boundaries for classification. In our case we are interested in creating two different boundaries as we are in a binary classification problem. This clustering technique attempts
+  to find neighbors close to each other which is why distance is an important factor in our calculation.
+<a href="https://www.ijera.com/papers/Vol3_issue5/DI35605610.pdf">For further technical explanation and research click here.</a>
+</p>
+  <hr/>
+   <br>
+
+   <h3>Pipeline & Code</h3>
+   <p>
+For our implementation we used Sklearn's pipeline object to outline steps needed to maximize our results for our KNN model.A standard scaler was also used as KNN uses distance for some algorithm parameters to calculate
+clusters, therefore it is very sensitive to scaling.
+This pipeline was also passed through our an oversampling SMOTE technique and finally through a cross validation technique.
+This is outlined in the following code.
+   </p>
+<br>
+<br>
+<hr/>
+<img class="img-fluid rounded" src="{{ url_for('static', filename='images/knn.png') }}"
+ width="1000" height="1200" alt="">
+
+
+
+
+<h2>Model Scoring</h2>
+
+
+<p>
+Two models will be compared to each other.
+
+<ol>
+  <li>Base Model</li>
+  <li>Tuned Model</li>
+</ol>
+
+</p>
+  <hr/>
+
+  <h3>Base Model</h3>
+  <p>This model was used without parameters all default parameters from Sklearn's clustering models.</p>
+  <p><strong>The following is the output from the classification report</strong></p>
+  <br>
+  <img class="img-fluid rounded" src="{{ url_for('static', filename='images/base_knn.png') }}"
+   width="600" height="600" alt="">
+   <br>
+
+  <hr/>
+  <h3>Tuned Model</h3>
+  <p>
+  This model was outputted from the best estimator from our <a href="{{url_for('oversampling')}}">RandomSearchCV</a algorithm.
+  </p>
+
+  <p><strong>The following is the output from the classification report</strong></p>
+
+  <img class="img-fluid rounded" src="{{ url_for('static', filename='images/tuned_knn.png') }}"
+   width="600" height="600" alt="">
+   <br>
+   <br>
+   <br>
+   <hr/>
+{% endblock %}

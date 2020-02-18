@@ -1,0 +1,84 @@
+{% extends 'layouts/base_test.html' %}
+
+
+
+
+{% block body %}
+<br>
+<br>
+<br>
+<h2>AdaBoost Boosted Trees</h2>
+<hr/>
+  <p>
+In this section we will explain the inner workings of the AdaBoost Algorithm and its power for prediction as it focuses on outliers. We will also show:
+<ol>
+<li>Model Pipeline</li>
+<li>Classification Report</li>
+<li>Comparison of Results</li>
+</ol>
+  <hr/>
+
+  <h3>Boosted Decision Trees</h3>
+  <p>
+    <img class="img-fluid rounded" src="{{ url_for('static', filename='images/ada_vis.png') }}"
+     width="600" height="800" alt="">
+  </p>
+<p>
+  As seen from above we are combining a series of weak learners into one good learner. This means using additive methods and re-weighting our samples as we classify them wrong. This is the advantage of AdaBoost
+  and boosting trees.<a href="https://towardsdatascience.com/understanding-adaboost-2f94f22d5bfe">For further technical explanation and research click here.</a>
+</p>
+  <hr/>
+   <br>
+
+   <h3>Pipeline & Code</h3>
+   <p>
+For our implementation we used Sklearn's pipeline object to outline steps needed to maximize our results for our AdaBoost model.
+This pipeline was also passed through our an oversampling SMOTE technique and finally through a cross validation technique.
+This is outlined in the following code.
+   </p>
+<br>
+<br>
+<hr/>
+<img class="img-fluid rounded" src="{{ url_for('static', filename='images/ada.png') }}"
+ width="1000" height="1200" alt="">
+
+
+
+
+<h2>Model Scoring</h2>
+
+
+<p>
+Two models will be compared to each other.
+
+<ol>
+  <li>Base Model</li>
+  <li>Tuned Model</li>
+</ol>
+
+</p>
+  <hr/>
+
+  <h3>Base Model</h3>
+  <p>This model was used without parameters all default parameters from Sklearn's ensemble models.</p>
+  <p><strong>The following is the output from the classification report</strong></p>
+  <br>
+  <img class="img-fluid rounded" src="{{ url_for('static', filename='images/base_ada.png') }}"
+   width="600" height="600" alt="">
+   <br>
+
+  <hr/>
+  <h3>Tuned Model</h3>
+  <p>
+  This model was outputted from the best estimator from our <a href="{{url_for('oversampling')}}">RandomSearchCV</a algorithm.
+  </p>
+
+  <p><strong>The following is the output from the classification report</strong></p>
+
+  <img class="img-fluid rounded" src="{{ url_for('static', filename='images/ada_tuned.png') }}"
+   width="600" height="600" alt="">
+   <br>
+   <br>
+   <br>
+   <hr/>
+{% endblock %}

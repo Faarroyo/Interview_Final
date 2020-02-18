@@ -1,0 +1,98 @@
+{% extends 'layouts/base_test.html' %}
+
+
+
+
+{% block body %}
+<br>
+<br>
+<br>
+<h2>Logistic Regression Model</h2>
+<hr/>
+  <p>
+In this section we will explain the inner workings of a logistic regression and its power for prediction. We will also show:
+<ol>
+<li>Model Pipeline</li>
+<li>Classification Report</li>
+<li>Comparison of Results</li>
+</ol>
+  <hr/>
+
+  <h3>Logistic Model</h3>
+  <p>
+  A logistic regression model build from the idea of a linear regression. This is a function that shows relationship between two variables.Let's build a logistic regression equation with our 4 selected variables.  </p>
+
+  <ul>
+    <li>Administrative Duration</li>
+    <li>Product Related Duration</li>
+    <li>Exit Rate</li>
+    <li>Page Values</li>
+  </ul>
+
+  <p>
+    <img class="img-fluid rounded" src="{{ url_for('static', filename='images/logit_model.png') }}"
+     width="600" height="800" alt="">
+  </p>
+<p>
+  As we can see before this model shows relationship between our explanatory variable Y(Revenue), and our 4 predictive variables. Each of these variables are passed through a sigmoid function that will create a boundary between 0 and 1.
+  0 corresponds to No Purchase and 1 to Purchase. The coefficients for our variables are estimated by minimizing the cost function which has a convex shape most of the time. This is visualized with one of our independent variables Page Values.
+  <a href="https://towardsdatascience.com/logistic-regression-detailed-overview-46c4da4303bc">For further technical explanation and research click here.</a>
+</p>
+<img class="img-fluid rounded" src="{{ url_for('static', filename='images/logit_graph.png') }}"
+ width="600" height="800" alt="">
+ <br>
+  <hr/>
+   <br>
+
+   <h3>Pipeline & Code</h3>
+   <p>
+For our implementation we used Sklearn's pipeline object to outline steps needed to maximize our results for our logistic regression model. This included first passing our variables through a standard scaler which would make our variables
+have a mean of 0 and a variance of 1. Since our model is sensitive to scale we need to make sure we are on the same scale. This pipeline was also passed through our an oversampling SMOTE technique and finally through a cross validation technique.
+This is outlined in the following code.
+   </p>
+<br>
+<br>
+<hr/>
+<img class="img-fluid rounded" src="{{ url_for('static', filename='images/grid_cv.png') }}"
+ width="1000" height="1200" alt="">
+
+
+
+
+<h2>Model Scoring</h2>
+
+
+<p>
+Two models will be compared to each other.
+
+<ol>
+  <li>Base Model</li>
+  <li>Tuned Model</li>
+</ol>
+
+</p>
+  <hr/>
+
+  <h3>Base Model</h3>
+  <p>This model was used without parameters all default parameters from Sklearn's linear models.</p>
+  <p><strong>The following is the output from the classification report</strong></p>
+  <br>
+  <img class="img-fluid rounded" src="{{ url_for('static', filename='images/base_logit.png') }}"
+   width="600" height="600" alt="">
+   <br>
+
+  <hr/>
+  <h3>Tuned Model</h3>
+  <p>
+  This model was outputted from the best estimator from our <a href="{{url_for('oversampling')}}">GridSearchCV</a algorithm.
+  </p>
+
+  <p><strong>The following is the output from the classification report</strong></p>
+
+  <img class="img-fluid rounded" src="{{ url_for('static', filename='images/tuned_logit.png') }}"
+   width="600" height="600" alt="">
+   <br>
+   <br>
+   <br>
+   <hr/>
+{% endblock %}

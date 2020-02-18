@@ -1,0 +1,35 @@
+{% extends 'layouts/base_test.html' %}
+
+
+
+
+{% block body %}
+<br>
+<br>
+<br>
+<h2>Cross Validation</h2>
+  <p>
+    <a href="https://machinelearningmastery.com/k-fold-cross-validation/">Cross Validation</a> allows for better model performance on unseen data. It splits subsets of our data into training and testing sets and then iterates over the combinations. This can be better depicted below:
+  </p>
+  <img class="img-fluid rounded" src="{{ url_for('static', filename='images/cross_val.png') }}"
+   width="600" height="800" alt="">
+  <hr/>
+
+  <h3>Stratified K-Fold Cross Validation</h3>
+  <p>
+      Our current data has characteristics which are problematic for simple K-fold cross validation.Below we can observe that we have a dataset imbalance as only 15.5% of our data represents our positive class
+      this will make it so our data does not predict our positive class well which is one aspect we are trying to maximize.
+  </p>
+  <img class="img-fluid rounded" src="{{ url_for('static', filename='images/data_imb.png') }}"
+   width="600" height="800" alt="">
+   <br>
+   <br>
+  <p>
+      Therefore we will solve this by creating Stratified K-Folds which hold representation across all of our data. Meaning that if our testing split had 20% postitive and 80% negative our testing set will
+      follow those same guidelines. This was coupled with <a href="{{url_for('oversampling')}}">Oversampling</a> which can be found here. The following is a depiction of our approach.
+  </p>
+  <img class="img-fluid rounded" src="{{ url_for('static', filename='images/strat.jpg') }}"
+   width="600" height="800" alt="">
+   <br>
+  <hr/>
+{% endblock %}
