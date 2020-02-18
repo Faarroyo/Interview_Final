@@ -47,17 +47,19 @@ def model():
 
 @app.route('/predict',methods=['POST'])
 def predict():
+   try:
+        int_features = [float(x) for x in request.form.values()]
+        final_features = [np.array(int_features)]
+        prediction = pipe_over_sample.predict(final_features)
 
-    int_features = [float(x) for x in request.form.values()]
-    final_features = [np.array(int_features)]
-    prediction = pipe_over_sample.predict(final_features)
+        if prediction == True:
+            output="Customer Will Purchase"
+        else:
+            output="Customer Will Not Purchase"
+    except :
+        output="Wrong Data Type Input"
 
-    if prediction == True:
-        output="Purchase"
-    else:
-        output="Not Purchase"
-
-    return render_template('model.html', prediction_text='Your Customer Will {}'.format(output))
+    return render_template('model.html', prediction_text = output)
 
 @app.route('/results',methods=['POST'])
 def results():
