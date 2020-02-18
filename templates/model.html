@@ -6,7 +6,7 @@
 
  <div class="login">
    <h1>
-     <center>Predictive Modeling</center>
+     <center>Will a Visitor Purchase?</center>
    </h1>
 <br>
 <br>
@@ -16,7 +16,7 @@
 
          <div class="col-lg-8 mb-6">
            <div class="card h-100">
-             <h4 class="card-header">Logistic Regression</h4>
+             <h4 class="card-header">Visitor Data</h4>
              <div class="card-body">
                <form action="{{url_for('predict')}}"method="post">
                	<input type="text" name="Administrative" placeholder="Administrative Duration" required="required" />
@@ -31,7 +31,7 @@
                 <input type="text" name="Page Value" placeholder="Page Value" required="required" />
                 <br>
                 <br>
-                <button type="submit" class="btn btn-info btn-block btn-large">Predict Customer Behavior</button>
+                <button type="submit" class="btn btn-info btn-block btn-large">Predict Visitor Behavior</button>
                 <br>
                 <h2>{{ prediction_text }}</h2>
             </form>
